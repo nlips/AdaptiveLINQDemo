@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CSharpCubeDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.adaptivelinq.com/design/cs">
+  <Name>SalesCube</Name>
+  <SourceType>SalesOrderDetail</SourceType>
+  <Description>Sales analysis cube</Description>
+  <Modifier>Public</Modifier>
+  <Dimensions>
+    <PropertyDefinition>
+      <Name>Customer</Name>
+      <Description>Customer name</Description>
+      <LambdaExpression>item =&gt; item.SalesOrderHeader.Customer.Person.LastName</LambdaExpression>
+    </PropertyDefinition>
+    <PropertyDefinition>
+      <Name>Product</Name>
+      <Description>Product name</Description>
+      <LambdaExpression>item =&gt; item.SpecialOfferProduct.Product.Name</LambdaExpression>
+    </PropertyDefinition>
+    <PropertyDefinition>
+      <Name>ProductCategory</Name>
+      <Description>Product category name</Description>
+      <LambdaExpression>item =&gt; item.SpecialOfferProduct.Product.ProductSubcategory.ProductCategory.Name</LambdaExpression>
+    </PropertyDefinition>
+    <PropertyDefinition>
+      <Name>Country</Name>
+      <Description>Country code</Description>
+      <LambdaExpression>item =&gt; item.SalesOrderHeader.SalesTerritory.CountryRegionCode</LambdaExpression>
+    </PropertyDefinition>
+  </Dimensions>
+  <Measures>
+    <PropertyDefinition>
+      <Name>TotalSales</Name>
+      <Description>Total sales</Description>
+      <LambdaExpression>items =&gt; items.Sum(i =&gt; i.LineTotal)</LambdaExpression>
+    </PropertyDefinition>
+    <PropertyDefinition>
+      <Name>TotalQty</Name>
+      <Description>Total quantity</Description>
+      <LambdaExpression>items =&gt; items.Sum(i =&gt; i.OrderQty)</LambdaExpression>
+    </PropertyDefinition>
+  </Measures>
+</CSharpCubeDefinition>
